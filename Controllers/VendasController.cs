@@ -42,7 +42,7 @@ namespace PagamentoApi.Controllers
         }
 
         [HttpPut("Atualizar_A_Venda{id}")]
-        public IActionResult AtualizarVenda(int id, Vendas Venda)
+        public IActionResult AtualizarVenda(int id, Vendas Venda, EnumStatusVenda status)
         {
             var VendaBanco = _VendasContext.Vendas.Find(id);
 
@@ -55,30 +55,32 @@ namespace PagamentoApi.Controllers
             VendaBanco.Data = Venda.Data;
             VendaBanco.IdVendedor = Venda.IdVendedor;
             VendaBanco.Itens = Venda.Itens;
-
-            if(VendaBanco.StatusVenda == EnumStatusVenda.Aguardando_Pagamento)
+            
+            if(Venda.StatusVenda == EnumStatusVenda.Aguardando_Pagamento)
             {
-                if(VendaBanco.StatusVenda != EnumStatusVenda.Pagamento_Aprovado || VendaBanco.StatusVenda != EnumStatusVenda.Cancelada)
+                if(status != EnumStatusVenda.Pagamento_Aprovado && status != EnumStatusVenda.Cancelada)
                 {
                     return BadRequest(new { Erro = "Atualização invalida. Verifique se o status da venda que quer atualizar está correto."});
                 }
             } 
-            else if(VendaBanco.StatusVenda == EnumStatusVenda.Pagamento_Aprovado)
+
+            if(Venda.StatusVenda == EnumStatusVenda.Pagamento_Aprovado)
             {
-                if(VendaBanco.StatusVenda != EnumStatusVenda.Enviado_para_Transportadora || VendaBanco.StatusVenda != EnumStatusVenda.Cancelada)
-                {
-                    return BadRequest(new { Erro = "Atualização invalida. Verifique se o status da venda que quer atualizar está correto."});
-                }
-            }
-            else if(VendaBanco.StatusVenda == EnumStatusVenda.Enviado_para_Transportadora)
-            {
-                if(VendaBanco.StatusVenda != EnumStatusVenda.Entregue)
+                if(status != EnumStatusVenda.Enviado_para_Transportadora && status != EnumStatusVenda.Cancelada)
                 {
                     return BadRequest(new { Erro = "Atualização invalida. Verifique se o status da venda que quer atualizar está correto."});
                 }
             }
 
-            VendaBanco.StatusVenda = Venda.StatusVenda;
+            if(Venda.StatusVenda == EnumStatusVenda.Enviado_para_Transportadora)
+            {
+                if(status != EnumStatusVenda.Entregue)
+                {
+                    return BadRequest(new { Erro = "Atualização invalida. Verifique se o status da venda que quer atualizar está correto."});
+                }
+            }
+            
+            VendaBanco.StatusVenda = status;
             _VendasContext.Vendas.Update(VendaBanco);
             _VendasContext.SaveChanges();
 

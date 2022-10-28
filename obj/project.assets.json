@@ -2193,11 +2193,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Emily\\Documents\\Projetos programação\\.Net\\tech-test-payment-api\\PagamentoApi.csproj",
+      "projectUniqueName": "D:\\Emily\\Documents\\Projetos programação\\.Net\\PagamentoAPI_Pottencial\\PagamentoApi.csproj",
       "projectName": "PagamentoApi",
-      "projectPath": "D:\\Emily\\Documents\\Projetos programação\\.Net\\tech-test-payment-api\\PagamentoApi.csproj",
+      "projectPath": "D:\\Emily\\Documents\\Projetos programação\\.Net\\PagamentoAPI_Pottencial\\PagamentoApi.csproj",
       "packagesPath": "C:\\Users\\Emily\\.nuget\\packages\\",
-      "outputPath": "D:\\Emily\\Documents\\Projetos programação\\.Net\\tech-test-payment-api\\obj\\",
+      "outputPath": "D:\\Emily\\Documents\\Projetos programação\\.Net\\PagamentoAPI_Pottencial\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Emily\\AppData\\Roaming\\NuGet\\NuGet.Config"
